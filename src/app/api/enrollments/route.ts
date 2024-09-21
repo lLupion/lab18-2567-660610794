@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 import { headers } from "next/headers";
 import { Payload } from "@lib/DB";
 
-export const GET = async (request: NextRequest) => {
+export const GET = async () => {
   const rawAuthHeader = headers().get("authorization");
 
   if (!rawAuthHeader || !rawAuthHeader.startsWith("Bearer ")) {
@@ -163,6 +163,7 @@ export const POST = async (request: NextRequest) => {
 
 export const DELETE = async (request: NextRequest) => {
   //check token
+  //verify token and get "studentId" and "role" information here
   const rawAuthHeader = headers().get("authorization");
 
   if (!rawAuthHeader || !rawAuthHeader.startsWith("Bearer ")) {
@@ -178,7 +179,6 @@ export const DELETE = async (request: NextRequest) => {
   const token = rawAuthHeader.split(" ")[1];
   const secret = process.env.JWT_SECRET || "This is my special secret";
 
-  //verify token and get "studentId" and "role" information here
   let studentId = null;
   let role = null;
 
